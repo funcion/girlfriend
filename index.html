@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Experimento</title>
+	<link href="https://fonts.googleapis.com/css2?family=Lobster&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	<script>
+		$(function(){
+			$('.modal').modal({
+				show: true,
+				backdrop: 'static'
+			});
+
+			$(document).on('click', ".btn", function(event) {
+				event.preventDefault();
+				if( $(this).hasClass('no') ) {
+					$(".btn").removeClass('btn btn-success mr-1 ml-1 mt-1 mb-1 si').addClass('btn btn-danger mr-1 ml-1 mt-1 mb-1 no').html("No, acepto");
+					$(this).removeClass('btn btn-danger mr-1 ml-1 mt-1 mb-1 no').addClass('btn btn-success mr-1 ml-1 mt-1 mb-1 si').html("Si, acepto");
+				}
+			});
+		});
+	</script>
+	<style>
+		.modal-content {
+		    background-color: rgba(255, 255, 255, 0.1);
+		    border: 1px solid rgba(255, 255, 255, 0.2);
+		}
+		.btn:focus {
+			border-color: transparent;
+    		-webkit-box-shadow: none;
+    		-moz-box-shadow: none;
+    		-ms-box-shadow: none;
+    		-o-box-shadow: none;
+    		box-shadow: none;
+		}
+		h1, h2, h3 {font-family: 'Lobster', cursive;}
+		body, h4, h5, h6 { font-family: 'Montserrat', sans-serif; }
+	</style>
+</head>
+<body style="height: 100%; background-image: url('image.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+	<div class="modal" tabindex="-1" role="dialog">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content" style="box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1); -webkit-box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1); -moz-box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1); -o-box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1);">
+
+	      <div class="modal-body text-center">
+	      	<div class="container-fluid">
+				<div class="row mt-4 mb-3">
+					<div class="col">
+						<h3 class="mb-4" style="color: #FFFFFF; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); -webkit-text-shadow: 1px 1px 3px rgba(0,0,0,0.3); -moz-text-shadow: 1px 1px 3px rgba(0,0,0,0.3); -o-text-shadow: 1px 1px 3px rgba(0,0,0,0.3);">¿Quieres Ser Mi Novia?</h3>
+					</div>
+				</div>
+				<div class="row mb-5">
+					<div class="col">
+						<div class="ctn_buttons">
+							<button type="button" class="btn btn-success mr-1 ml-1 mt-1 mb-1 si">Si, acepto</button>
+							<button type="button" class="btn btn-danger mr-1 ml-1 mt-1 mb-1 no">No, acepto</button>
+						</div>
+					</div>
+				</div>
+				<div class="row mb-4">
+					<div class="col">
+						<div style="color: #FFFFFF; opacity: 0.7;">Amiga gracias a ti, aprendí algo nuevo hoy jajaja, Dios te bendiga.</div>
+					</div>
+				</div>
+			</div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</body>
+</html>
