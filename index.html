@@ -11,6 +11,80 @@
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
 	<script>
+
+
+	//======================================================== FASTCLICK
+         function FastButton(element, handler) {
+            this.element = element;
+            this.handler = handler;
+            element.addEventListener('touchstart', this, false);
+         };
+         FastButton.prototype.handleEvent = function(event) {
+            switch (event.type) {
+               case 'touchstart': this.onTouchStart(event); break;
+               case 'touchmove': this.onTouchMove(event); break;
+               case 'touchend': this.onClick(event); break;
+               case 'click': this.onClick(event); break;
+            }
+         };
+         FastButton.prototype.onTouchStart = function(event) {
+
+		event.stopPropagation();
+		            this.element.addEventListener('touchend', this, false);
+		            document.body.addEventListener('touchmove', this, false);
+		            this.startX = event.touches[0].clientX;
+		            this.startY = event.touches[0].clientY;
+		 isMoving = false;
+		         };
+		         FastButton.prototype.onTouchMove = function(event) {
+		            if(Math.abs(event.touches[0].clientX - this.startX) > 10 || Math.abs(event.touches[0].clientY - this.startY) > 10) {
+		               this.reset();
+		            }
+		         };
+		         FastButton.prototype.onClick = function(event) {
+		            this.reset();
+		            this.handler(event);
+		            if(event.type == 'touchend') {
+		               preventGhostClick(this.startX, this.startY);
+		            }
+		         };
+		         FastButton.prototype.reset = function() {
+		            this.element.removeEventListener('touchend', this, false);
+		            document.body.removeEventListener('touchmove', this, false);
+		         };
+		         function preventGhostClick(x, y) {
+		            coordinates.push(x, y);
+		            window.setTimeout(gpop, 2500);
+		         };
+		         function gpop() {
+		            coordinates.splice(0, 2);
+		         };
+		         function gonClick(event) {
+		            for(var i = 0; i < coordinates.length; i += 2) {
+		               var x = coordinates[i];
+		               var y = coordinates[i + 1];
+		               if(Math.abs(event.clientX - x) < 25 && Math.abs(event.clientY - y) < 25) {
+		                  event.stopPropagation();
+		                  event.preventDefault();
+		               }
+		            }
+		         };
+		         document.addEventListener('click', gonClick, true);
+		         var coordinates = [];
+		         function initFastButtons() {
+		 new FastButton(document.getElementById("fastclick"), goSomewhere);
+		         };
+		         function goSomewhere() {
+		 var theTarget = document.elementFromPoint(this.startX, this.startY);
+		 if(theTarget.nodeType == 3) theTarget = theTarget.parentNode;
+
+		 var theEvent = document.createEvent('MouseEvents');
+		 theEvent.initEvent('click', true, true);
+		 theTarget.dispatchEvent(theEvent);
+		         };
+		//========================================================
+
+
 		$(function(){
 			$('.modal').modal({
 				show: true,
@@ -43,7 +117,7 @@
 		body, h4, h5, h6 { font-family: 'Montserrat', sans-serif; }
 	</style>
 </head>
-<body style="height: 100%; background-image: url('image.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+<body style="height: 100%; background-image: url('image.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;" onLoad="initFastButtons();">
 	<div class="modal" tabindex="-1" role="dialog">
 	  <div class="modal-dialog modal-dialog-centered">
 	    <div class="modal-content" style="box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1); -webkit-box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1); -moz-box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1); -o-box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1);">
@@ -57,10 +131,12 @@
 				</div>
 				<div class="row mb-5">
 					<div class="col">
-						<div class="ctn_buttons">
-							<button type="button" class="btn btn-success mr-1 ml-1 mt-1 mb-1 si">Si, acepto</button>
-							<button type="button" class="btn btn-danger mr-1 ml-1 mt-1 mb-1 no">No, acepto</button>
-						</div>
+						<span id="fastclick">
+							<div class="ctn_buttons">
+								<button type="button" class="btn btn-success mr-1 ml-1 mt-1 mb-1 si">Si, acepto</button>
+								<button type="button" class="btn btn-danger mr-1 ml-1 mt-1 mb-1 no">No, acepto</button>
+							</div>
+						</span>
 					</div>
 				</div>
 				<div class="row mb-4">
