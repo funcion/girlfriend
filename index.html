@@ -91,7 +91,7 @@
 				backdrop: 'static'
 			});
 
-			$(document).on('click', ".btn", function(event) {
+			$(document).on('click mouseenter', ".btn", function(event) {
 				event.preventDefault();
 				if( $(this).hasClass('no') ) {
 					$(".btn").removeClass('btn btn-success mr-1 ml-1 mt-1 mb-1 si').addClass('btn btn-danger mr-1 ml-1 mt-1 mb-1 no').html("No, acepto");
